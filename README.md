@@ -5,6 +5,9 @@ This is built to function similar to Corona's `system.pathForFile()` function ht
 
 Generates and returns an absolute path using system-defined directories as the base. An additional optional parameter, `base_directory`, specifies which base directory is used to construct the full path, with its default value being `directories.resource`.
 
+# URL for Defold
+https://github.com/Lerg/extension-directories/archive/master.zip
+
 # Support
 
 The extension currently works on iOS and Android. On macOS an additional work is needed. Doesn't work on Linux and Windows yet.
