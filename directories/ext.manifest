@@ -1,1 +1,9 @@
 name: "directories"
+
+platforms:
+    x86-win32:
+        context:
+            libs: ["shlwapi"]
+    x86_64-win32:
+        context:
+            libs: ["shlwapi"]

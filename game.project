@@ -43,3 +43,6 @@ app_icon_167x167 = /main/images/icon/167.png
 [library]
 include_dirs = directories
 
+[osx]
+bundle_identifier = com.spiralcodestudio.directories
+
