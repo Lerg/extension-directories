@@ -10,9 +10,9 @@ It takes into account `OSX->Bundle Identifier` property in `game.project` and us
 # URL for Defold
 https://github.com/Lerg/extension-directories/archive/master.zip
 
-# Support
+# Supported platforms
 
-The extension doesn't work in HTML5.
+Android, iOS, macOS, Linux, Windows, HTML5.
 
 # Syntax
 
