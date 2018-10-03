@@ -24,6 +24,28 @@ local function plog(t)
 	log(pretty_print(t))
 end
 
+-- Test file saving and loading.
+local function test_file(path)
+	local value = tostring(math.random())
+	if sys.save(path, {value = value}) then
+		local content = sys.load(path)
+		if content.value then
+			if content.value == value then
+				return true
+			else
+				log('Saved and loaded file contents do not match.')
+			end
+		else
+			log('Failed to load file.')
+			return false
+		end
+	else
+		log('Failed to save file.')
+		return false
+	end
+	return true
+end
+
 -- Button handlers.
 
 local function app_support_pressed(self)
@@ -32,6 +54,7 @@ local function app_support_pressed(self)
 	local file = directories.path_for_file('file.txt', directories.application_support)
 	log('Dir: ' .. directory)
 	log('File: ' .. file)
+	log('Test: ' .. (test_file(file) and 'passed' or 'failed'))
 end
 
 local function caches_pressed(self)
@@ -40,6 +63,7 @@ local function caches_pressed(self)
 	local file = directories.path_for_file('file.txt', directories.caches)
 	log('Dir: ' .. directory)
 	log('File: ' .. file)
+	log('Test: ' .. (test_file(file) and 'passed' or 'failed'))
 end
 
 local function documents_pressed(self)
@@ -48,6 +72,7 @@ local function documents_pressed(self)
 	local file = directories.path_for_file('file.txt', directories.documents)
 	log('Dir: ' .. directory)
 	log('File: ' .. file)
+	log('Test: ' .. (test_file(file) and 'passed' or 'failed'))
 end
 
 local function resource_pressed(self)
@@ -56,6 +81,9 @@ local function resource_pressed(self)
 	local file = directories.path_for_file('file.txt', directories.resource)
 	log('Dir: ' .. directory)
 	log('File: ' .. file)
+	if sys.get_sys_info().system_name ~= 'iPhone OS' and sys.get_sys_info().system_name ~= 'Android' then
+		log('Test: ' .. (test_file(file) and 'passed' or 'failed'))
+	end
 end
 
 local function temporary_pressed(self)
@@ -64,6 +92,7 @@ local function temporary_pressed(self)
 	local file = directories.path_for_file('file.txt', directories.temporary)
 	log('Dir: ' .. directory)
 	log('File: ' .. file)
+	log('Test: ' .. (test_file(file) and 'passed' or 'failed'))
 end
 
 -- Show/hide logs view.

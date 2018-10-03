@@ -46,3 +46,6 @@ include_dirs = directories
 [osx]
 bundle_identifier = com.spiralcodestudio.directories
 
+[native_extension]
+app_manifest = /clang.appmanifest
+
