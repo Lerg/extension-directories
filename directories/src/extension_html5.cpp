@@ -134,12 +134,12 @@ static int download_file(lua_State *L) {
 		var filename = Pointer_stringify($0);
 		var download_name = Pointer_stringify($1);
 		var file;
-		var data = FS.readFile(filename);
+		var data = FS.readFile(filename).buffer;
 		var properties = {type: 'application/octet-stream'};
 		try {
-			file = new File(data, download_name, properties);
+			file = new File([data], download_name, properties);
 		} catch (e) {
-			file = new Blob(data, properties);
+			file = new Blob([data], properties);
 		}
 		var url = URL.createObjectURL(file);
 		var a = document.createElement('a');
