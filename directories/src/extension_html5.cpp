@@ -4,6 +4,7 @@
 #define DLIB_LOG_DOMAIN EXTENSION_NAME_STRING
 #include <dmsdk/sdk.h>
 
+#include <emscripten.h>
 #include <libgen.h>
 #include <limits.h>
 #include <pwd.h>
@@ -114,6 +115,41 @@ static int path_for_file(lua_State *L) {
 	return 1;
 }
 
+static int download_file(lua_State *L) {
+	int count = lua_gettop(L);
+	const char *filename = NULL;
+	const char *download_name = NULL;
+	if (lua_isstring(L, 1)) {
+		filename = lua_tostring(L, 1);
+	} else {
+		dmLogError("filename is required.");
+		return 0;
+	}
+	if (lua_isstring(L, 2)) {
+		download_name = lua_tostring(L, 2);
+	} else {
+		download_name = basename((char *)filename);
+	}
+	EM_ASM_({
+		var filename = Pointer_stringify($0);
+		var download_name = Pointer_stringify($1);
+		var file;
+		var data = FS.readFile(filename);
+		var properties = {type: 'application/octet-stream'};
+		try {
+			file = new File(data, download_name, properties);
+		} catch (e) {
+			file = new Blob(data, properties);
+		}
+		var url = URL.createObjectURL(file);
+		var a = document.createElement('a');
+		a.href = url;
+		a.download = download_name;
+		a.click();
+	}, filename, download_name);
+	return 0;
+}
+
 dmExtension::Result APP_INITIALIZE(dmExtension::AppParams *params) {
 	return dmExtension::RESULT_OK;
 }
@@ -126,6 +162,7 @@ dmExtension::Result INITIALIZE(dmExtension::Params *params) {
 	lua_State *L = params->m_L;
 	const luaL_Reg lua_functions[] = {
 		{"path_for_file", path_for_file},
+		{"download_file", download_file},
 		{NULL, NULL}
 	};
 
