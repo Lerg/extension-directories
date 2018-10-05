@@ -8,7 +8,7 @@ Android, iOS, macOS, Linux, Windows, HTML5.
 # URL for Defold
 https://github.com/Lerg/extension-directories/archive/master.zip
 
-# `directories.path_for_file()`
+## `directories.path_for_file()`
 
 This is built to function similar to Corona's `system.pathForFile()` function https://docs.coronalabs.com/api/library/system/pathForFile.html
 
@@ -61,9 +61,7 @@ local path = directories.path_for_file(nil, directories.caches)
 print(path)
 ```
 
-# HTML5 file download
-
-# `directories.download_file()`
+## `directories.download_file()`
 
 Additionaly on HTML5 this extension provides `directories.download_file()` function to download any generated files on the local computer.
 
