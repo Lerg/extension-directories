@@ -131,8 +131,8 @@ static int download_file(lua_State *L) {
 		download_name = basename((char *)filename);
 	}
 	EM_ASM_({
-		var filename = Pointer_stringify($0);
-		var download_name = Pointer_stringify($1);
+		var filename = UTF8ToString($0);
+		var download_name = UTF8ToString($1);
 		var file;
 		var data = FS.readFile(filename).buffer;
 		var properties = {type: 'application/octet-stream'};
